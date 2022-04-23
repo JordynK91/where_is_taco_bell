@@ -1,22 +1,17 @@
-from dotenv import load_dotenv
 import requests
-import os
 from urllib.error import HTTPError
 
 from constants import BASE_URL
 
 load_dotenv()
 
-# if you don't have .env file you can put YELP API key here
-token = ''
-BEARER_TOKEN = os.getenv('BEARER_TOKEN', token)
 
 
 class SearchAPI(object):
 
-    def __init__(self):
+    def __init__(self, token):
         self.headers = {
-            'Authorization': f'Bearer {BEARER_TOKEN}',
+            'Authorization': f'Bearer {token}',
         }
 
     def search_by_location(self, location):

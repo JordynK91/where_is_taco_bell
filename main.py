@@ -1,5 +1,11 @@
 from art import tprint
 from api import SearchAPI
+from dotenv import load_dotenv
+import os
+
+# if you don't have .env file you can put Yelp API key here
+token = ''
+BEARER_TOKEN = os.getenv('BEARER_TOKEN', token)
 
 def hola_mundo():
     tprint('Where is Taco Bell')
@@ -39,7 +45,10 @@ def city_search():
 
 
 def do_search(location):
-    status, tbell_list = SearchAPI().search_by_location(location)
+    if not token:
+        print('Fatal Error: We are missing the Yelp API Key. Goodbye.')
+        return
+    status, tbell_list = SearchAPI(token).search_by_location(location)
     if status == 1:
       print('Uh oh! We had a problem searching for Taco Bells.')
       return
